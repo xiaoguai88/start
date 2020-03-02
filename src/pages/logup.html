@@ -39,35 +39,73 @@
             font-size: 25px;
             color: #333333;
             font-weight: 600;
-            padding-right: 20px;
+            padding-left: 20px;
         }
         .zc{
             font-size: 25px;
             color:#999;
             font-weight: 600;
-            padding-left: 20px;
+            padding-right: 20px;
             
         }
         .phone{
-            width: 294px;
+            width: 333px;
             height: 25px;
             border: 0px;
             background-color: #f5f5f5;
             padding: 9px 10px;
         }
+        .yzk{
+            position: relative;
+        }
         .pw{
-            width: 294px;
+            width: 166px;
             height: 25px;
             border: 0px;
             background: #f5f5f5;
             padding: 9px 10px;
             margin: 20px auto;
         }
+        .yz{
+            width: 140px;
+            height: 47px;
+            border: 0px;
+            color: #ffffff;
+            font-size: 14px;
+            background-color: #ff5a3c;
+            border-radius: 4px;
+            position: absolute;
+            right: 0;
+            top: 20px;
+        }
         .bc{
-            box-sizing: border-box;
+            width: 333px;
+            height: 25px;
+            border: 0px;
+            background-color: #f5f5f5;
+            padding: 9px 10px;
+        }
+        .xyk{
             position: relative;
         }
-        .kj{
+        .xy{
+            color: #666666;
+            font-size: 12px;
+            margin-top: 20px;
+            margin-left: 14px;
+        }
+        .xy-1{
+            position: absolute;
+            top: 2px;
+           
+        }
+        .xy-2{
+            font-size: 12px;
+            position: absolute;
+            left: 73px;
+            top: 0px;
+        }
+        /* .kj{
             font-size: 14px;
             color: #333333;
         }
@@ -82,21 +120,20 @@
             padding-left: 152px;
             padding-right: 5px;
             border-right: 1px solid #cccccc;
-        }
+        } */
         /* .s1{
             margin: 0 7px;
         } */
-        .fg{
+        /* .fg{
             
             font-size: 12px;
             color: #666666;
           padding-right: 0px;
          
-        }
-        .login-dl{
+        } */
+        /* .login-dl{
             width: 350px;
             height: 40px;
-            border: 0px;
             background-color: #e62828;
             text-align: center;
             line-height: 40px;
@@ -106,44 +143,54 @@
             color: white;
             padding: 17px auto;
             margin: 40px 0;
-        }
-        .wb{
+        } */
+        /* .wb{
             font-size: 12px;
             text-align: center;
            
         }
         .wb .zb{
             padding: 0 20px;
+        }*/
+        .zck{
+            width: 350px;
+            height: 40px;
+            border: 0;
+            box-sizing: border-box;
+            background-color: #e62828;
+            border-radius: 4px;
+            color: white;
+            margin: 50px 0 40px;
+            font-size: 16px;
+            
         }
-    </style>
+    </style> 
 </head>
 <body>
     <div class="login">
         <div class="login-a">
             <div class="login-b"> 
-                <a class="dl" href= "javascript:" >登陆</a>
-                <a class="zc" href= "javascript:" >注册</a>
+               
+                <a class="zc" href= "javascript:" >登陆</a>
+                <a class="dl" href= "javascript:" >注册</a>
             </div>
             <div>
-                <input type="text" class="phone" placeholder="手机号/邮箱">
+                <input type="text" class="phone" placeholder="手机号">
             </div>
-            <div>
-                <input type="password" class="pw" placeholder="密码">
+            <div class="yzk">   
+                <input type="password" class="pw" placeholder="输入验证码">
+                <button class="yz">发送短信验证码</button>
             </div>
-            <div class="bc">
-                <a href="" class="kj">手机快捷登陆</a>
-                
-                <label for="" class="jz"><input type="checkbox" class="kk" >记住我</label>
-                <a href="" class="fg">忘记密码</a>
+            <div >
+                <input type="text" class="bc" placeholder="密码">
             </div>
-            <input type="submit" class="login-dl" value="登      陆">
+         <div class="xyk"> 
+            <input type="checkbox" class="xy-1"><p class="xy">什么值得买</p><a href="" class="xy-2">《用户协议》</a>
+         </div>
+         <input type="submit"  class="zck" value="注 &nbsp;册">
                 
             
-            <div class="wb">
-                <a href="">新浪微博</a>
-                <a href="" class="zb">腾讯qq</a>
-                <a href="">我买网</a>
-            </div>
+         
         </div>
        
     </div>
