@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/querystring.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="lib/axios.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<input type="text">
+		<input type="text">
+		<input type="text">
+		<input type="text">
+		<input type="button" value="保存">
+		
+		<script type="text/javascript">
+			//怎么获取到url 中 search 字段
+			console.log(location.search)
+			let obj = parseQuery(location.search.slice(1))
+			console.log(obj)
+			let pid = obj.pid;
+			
+			let ipts = document.querySelectorAll('input')
+			
+			
+			//根据pid 获取商品详情,显示到编辑页面
+			axios.get(productDetailApi,{params:{
+				id:pid
+			}}).then(res=>{
+				console.log(res.data.data)
+				let obj = res.data.data;
+				ipts[0].value = obj.pname
+				ipts[1].value = obj.pprice
+				ipts[2].value = obj.pimg
+				ipts[3].value = obj.pdesc
+				
+			})
+			
+			ipts[4].onclick = function(){
+				var pname = ipts[0].value 
+				var pprice = ipts[1].value 
+				var pimg = ipts[2].value 
+				var pdesc= ipts[3].value 
+				// let params = {
+				// 	pname,pprice,pimg,pdesc
+				// }
+				// console.log(params)
+				// let obj = {
+				// 	params
+				// }
+				// console.log(obj)
+				axios.get(productEditApi,{params:{
+					pname,pprice,pimg,pdesc,pid
+				}}).then(res=>{
+					console.log(res.data)
+					alert(res.data.msg)
+					location.href = 'index.html'
+				})
+				
+			}
+			
+		</script>
+	</body>
+</html>

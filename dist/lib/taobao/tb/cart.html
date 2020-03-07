@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="lib/axios.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="lib/js.cookie.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<h2>我的购物车</h2>
+		
+		
+		全选：<input type="checkbox" name="" id="allBtn" value="" />  <span id="countSpan">
+			
+		</span>
+		<ul class="list">
+			<li>
+				<input type="checkbox" name="" id="" value="" class="selBtn"/>
+				<h2></h2>
+				<p></p>
+				<img src="" >
+				<input type="button" name="" id="" value="+"  class="addBtn" />
+				<input type="text" name="" id="" value="" class="pnumIpt"/>
+				<input type="button" name="" id="" value="-" class="subBtn"/> 
+				<input type="button" name="" id="" value="删除" class="deleteBtn"/>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			
+			let id = Cookies.get('id')
+			let list = document.querySelector('.list')
+			let cartList = null;
+			//请求购物车列表信息
+			axios.get(cartListApi,{
+				params:{
+					id
+				}
+			}).then(res=>{
+				console.log(res.data)
+				cartList = res.data.data;
+				let html = res.data.data.map(v=>`
+				<li>
+					<input type="checkbox" name="" id="" value="" class="selBtn"/>
+					<h2>${v.pname}</h2>
+					<p>${v.pprice}</p>
+					<img src="${v.pimg}" >
+					<input type="button" data-id="${v.pid}" name="" id="" value="+"  class="addBtn" />
+					<input type="text"  data-id="${v.pid}" name="" id="" value="${v.pnum}" class="pnumIpt"/>
+					<input data-id="${v.pid}" type="button" name="" id="" value="-" class="subBtn"/> 
+					<input data-id="${v.pid}" type="button" name="" id="" value="删除" class="deleteBtn"/>
+				</li>
+				`).join('');
+				list.innerHTML = html
+				// 之后 加事件
+				let deleteBtns = document.querySelectorAll('.deleteBtn')
+				let addBtns = document.querySelectorAll('.addBtn')
+				let subBtns = document.querySelectorAll('.subBtn')
+				let pnumIpts = document.querySelectorAll('.pnumIpt')
+				for(let i=0;i<deleteBtns.length;i++){
+					deleteBtns[i].onclick = function(){
+						let pid = this.getAttribute('data-id')
+						let uid = id;
+						axios.get(cartDeleteApi,{
+							params:{pid,uid}
+						}).then(res=>{
+							console.log(res.data)
+							this.parentNode.remove()
+							alert('删除成功')
+							cartList = cartList.filter(v=>v.pid != pid)
+							countPrice()
+						}).catch(err=>{
+							
+						})
+						
+					}
+					
+					addBtns[i].onclick = function(){
+						let pid = this.getAttribute('data-id')
+						let uid = id;
+						let pnum = parseInt(this.nextElementSibling.value)
+						pnum++;
+						axios.get(cartUpdateApi,{
+							params:{pid,uid,pnum}
+						}).then(res=>{
+							console.log(res.data)
+							this.nextElementSibling.value = pnum;
+							// alert('更新成功')
+							//更新 cartList 中数据
+							let obj = cartList.find(v=>v.pid == pid)
+							obj.pnum = pnum;
+							console.log(obj)
+							countPrice()
+						}).catch(err=>{
+							
+						})
+					}
+					
+					subBtns[i].onclick = function(){
+						let pid = this.getAttribute('data-id')
+						let uid = id;
+						let pnum = parseInt(this.previousElementSibling.value)
+						if(pnum==1){
+							return;
+						}
+						pnum--;
+						axios.get(cartUpdateApi,{
+							params:{pid,uid,pnum}
+						}).then(res=>{
+							console.log(res.data)
+							this.previousElementSibling.value = pnum;
+							let obj = cartList.find(v=>v.pid == pid)
+							obj.pnum = pnum;
+							// alert('更新成功')
+							countPrice()
+							
+						}).catch(err=>{
+							
+						})
+					}
+					
+					pnumIpts[i].onchange = function(){
+						let pid = this.getAttribute('data-id')
+						let uid = id;
+						let pnum = parseInt(this.value);
+						let obj = {pid,uid,pnum}
+						console.log(pnum)
+						console.log(obj)
+						
+						if(pnum<1){
+							
+							return;
+						}
+						axios.get(cartUpdateApi,{
+							params:obj
+						}).then(res=>{
+							console.log(res.data)
+							// this.value = pnum;
+							let obj = cartList.find(v=>v.pid == pid)
+							obj.pnum = pnum;
+							// alert('更新成功')
+							countPrice()
+							
+						}).catch(err=>{
+							
+						})
+					}
+					
+				}
+				
+			
+				//全选按钮
+				let allBtn = document.querySelector('#allBtn')
+				let selBtns = document.querySelectorAll('.selBtn')
+				
+				allBtn.onclick = function(){
+					console.log(2,selBtns);
+					[...selBtns].forEach(v=>{
+						console.log(this.checked)
+						v.checked=this.checked;
+						
+					})
+					
+					//
+					countPrice()
+				}
+				
+				// 单选按钮
+				for (var i = 0; i < selBtns.length; i++) {
+					selBtns[i].onclick = function(){
+						//点击单选按钮的时候,判断所有的单选按钮的状态
+						let flag = [...selBtns].every(v=>v.checked==true)
+						allBtn.checked = flag;
+						//
+						countPrice()
+					}
+				}
+				
+			
+			})
+			
+			function countPrice(){
+				//计算总价
+				console.log('计算总价')
+				console.log(cartList)
+				let count = 0;
+				[...cartList].forEach(v=>{
+					count += v.pnum * v.pprice;
+				})
+				
+				countSpan.innerHTML = count +'元'
+				
+				
+				
+				
+			}
+			
+			// 修改数量  删除 
+			
+			// 单选 全选  总价
+			
+			
+		</script>
+	</body>
+</html>
