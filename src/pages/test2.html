@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			li{list-style: none;}
+			.nav{
+				display: flex;
+			
+			}
+			ul{
+				padding: 0;
+			}
+			
+			ul>li{
+				width: 200px;
+				height: 40px;
+				border: solid 1px aqua;
+				text-align: center;
+				line-height: 40px;
+				display: none;
+			}
+			.active{
+				background: pink;
+				color: white;
+			}
+			
+			
+		</style>
+		<script type="text/javascript" src="../lib/jquery copy/jquery.min.js"></script>
+			
+		
+	</head>
+	<body>
+		<div id="" class="nav">
+			
+		
+		<ul>
+			<li class="active">1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+		<ul>
+			<li class="active">1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+		<ul>
+			<li class="active">1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		console.log($('ul>li'));
+		
+	</script>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/querystring.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="lib/axios.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="lib/js.cookie.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		
+		<div id="">
+			
+			<a href="cart.html">我的购物车</a>
+
+		</div>
+		
+		
+		<div id="content">
+			<!-- <input type="button" name="" id="" value="+" />
+			<input type="text" name="" id="" value="" />
+			<input type="button" name="" id="" value="-" /> -->
+			
+			<!-- <h2></h2>
+			<img src="" >
+			<p></p>
+			<button type="button">加入购物车</button>
+			<p></p> -->
+		</div>
+		
+		<script type="text/javascript">
+			//怎么获取到url 中 search 字段
+			console.log(location.search)
+			let obj = parseQuery(location.search.slice(1))
+			console.log(obj)
+			let pid = obj.pid;
+			let uid = Cookies.get('id')
+			
+			let ipts = document.querySelectorAll('input')
+			
+			
+			//根据pid 获取商品详情,显示到编辑页面
+			axios.get(productDetailApi,{params:{
+				id:pid
+			}}).then(res=>{
+				console.log(res.data.data)
+				let obj = res.data.data;
+				// ipts[0].value = obj.pname
+				// ipts[1].value = obj.pprice
+				// ipts[2].value = obj.pimg
+				// ipts[3].value = obj.pdesc
+				
+				let html =`
+					<h2>${obj.pname}</h2>
+					<img src="${obj.pimg}" >
+					<p>${obj.pprice}</p>
+					
+					<input type="button" name="" id="" value="+" />
+					<input type="text" name="" id="pnumIpt" value="1" />
+					<input type="button" name="" id="" value="-" />
+					
+					<button class="add-cart-btn" type="button" data-id="${obj.pid}">加入购物车</button>
+					<p>${obj.pdesc}</p>
+				`
+				content.innerHTML = html;
+				//才有 加入购物车按钮
+				let addCartBtn = document.querySelector('.add-cart-btn')
+				addCartBtn.onclick = function(){
+					console.log(this)
+					let pnum = pnumIpt.value;
+					
+					axios.get(cartAddApi,{params:{pnum,pid,uid}})
+					.then(res=>{
+						console.log(res.data)
+						alert('加入成功')
+					})
+					
+					
+				}
+				
+				
+			})
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="lib/axios.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+
+		<input type="text">
+		<input type="password">
+		<input type="button" value="注册">
+
+		<script type="text/javascript">
+			let ipts = document.querySelectorAll('input')
+			ipts[2].onclick = function() {
+
+// 				axios.post(regApi, {
+// 					username: ipts[0].value,
+// 					password: ipts[1].value
+// 
+// 
+// 				}).then(res => {
+// 					console.log(res)
+// 				})
+
+				axios.get(regApi,{
+					params:{
+						username:ipts[0].value,
+						password:ipts[1].value
+						
+					}
+				}).then(res=>{
+					console.log(res)
+					
+					if(res.data.code==1){
+						alert('注册成功')
+						location.href= 'login.html'
+					}
+				})
+
+			}
+		</script>
+
+	</body>
+</html>

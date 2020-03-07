@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="lib/axios.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="lib/js.cookie.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		<div id="">
+			管理员
+			<span id="username">
+				
+			</span>
+			：你好.
+			
+			<a href="javascript:;" id="exit">退出</a>
+			
+		</div>
+		<h2>xx商城管理系统</h2>
+		
+		<form action="" method="post">
+			<input type="text">
+			<input type="text">
+			<input type="text">
+			<input type="text">
+			<input type="submit" value="发布" id="btn"/>
+		</form>
+		
+		<ul class="list">
+			<li>
+				<h2></h2>
+				<p></p>
+				<img src="" >
+				<p></p>
+				
+			</li>
+		</ul>
+		
+		<!-- p.bar*3 -->
+
+		<script type="text/javascript">
+			let id = Cookies.get('id')
+			let un = Cookies.get('username')
+			let token = Cookies.get('token')
+			
+			
+			if(id){
+				let span = document.querySelector('#username')
+				span.innerText = un
+			}else{
+				alert('请登录')
+				location.href='login.html'
+			}
+			let list=  document.querySelector('.list')
+			let exitBtn = document.querySelector('#exit')
+			exitBtn.onclick = function(){
+				
+				Cookies.remove('id')
+				Cookies.remove('username')
+				alert('退出成功')
+				location.href='login.html'
+			}
+			
+			//https://blog.csdn.net/comphoner/article/details/79670148   emmet 语法
+			
+			//发布功能
+			let uid = Cookies.get('id');
+			
+			let btn = document.querySelector('#btn')
+			let ipts = document.querySelectorAll('input')
+			btn.onclick = function(evt){
+				let pname = ipts[0].value;
+				let pprice = ipts[1].value;
+				let pimg = ipts[2].value;
+				let pdesc = ipts[3].value;
+				axios.get(productAddApi,{
+					params:{pname,pprice,pimg,pdesc,uid}
+				})
+				.then(res=>{
+					console.log(res)
+					showProductList()
+				})
+				
+				evt.preventDefault()
+				return false;
+			}
+			
+			// 显示
+			function showProductList(){
+				let pagenum = 0;
+				let pagesize = 10;
+				axios.get(productListApi,{
+					params:{pagesize,pagenum,uid}
+				}).then(res=>{
+					console.log(res.data.data)
+					
+					let html = res.data.data.map(v=>`
+						<li>
+							<h2>${v.pname}</h2>
+							<p>${v.pprice}</p>
+							<img src="${v.pimg}" >
+							<p>${v.pdesc}</p>
+							<button data-id="${v.pid}" class="delete-btn">删除</button>
+							<button data-id="${v.pid}" class="edit-btn">修改</button>
+							<a href="edit.html?pid=${v.pid}">修改</a>
+						</li>
+					`).join('')
+					
+					list.innerHTML = html
+					
+					
+				})
+			}
+			showProductList()
+			
+			
+			
+			// 删除
+			list.onclick = function(evt){
+				if(evt.target.classList.contains('delete-btn')){
+					//先调用接口删除 服务器内容
+					let pid = evt.target.getAttribute('data-id')
+					axios.get(productDeleteApi,{
+						params:{
+							uid,pid,token
+						}
+					}).then(res=>{
+						console.log(res.data)
+						evt.target.parentNode.remove()
+					})
+					
+					// 再删除一行
+					
+				}
+				
+				if(evt.target.classList.contains('edit-btn')){
+					// 修改按钮
+					console.log(11)
+					
+					
+				}
+			}
+			
+			
+			
+			// 修改
+		</script>
+
+	</body>
+</html>

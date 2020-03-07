@@ -88,12 +88,19 @@ body{
     color: #333333;
     cursor: pointer;
 }
-.nav-1 li:hover{
+.nav-1 li a{
+    
+    color: #666;
+}
+.nav-1 li a:hover{
     color: red;
 }
 .nav-r{
     float: right;
     background-color: #ffffff;
+}
+.nav-r a:hover{
+    color: red;
 }
 
 .nav-r a{
@@ -129,12 +136,23 @@ body{
     height: 528px;
 }
 .banner-l ul li{
-    width: 228px;
+    width: 218px;
     height: 48px;
     line-height: 48px;
     padding: 0 0 0 10px;
     font-size: 14px;
     color: #666666;
+}
+.banner-l ul li a{
+    color: #666666;
+}
+.banner-l ul li:hover{
+    background-color: pink;
+    color: red;
+}
+.banner-l ul li a:hover{
+    background-color: pink;
+    color: red;
 }
 .banner-z{
     width: 680px;
@@ -146,7 +164,7 @@ body{
 .banner-lb{
     width: 680px;
     height: 278px;
-    background-color: #e62828;
+    background-color: #ffffff;
     
 }
 .banner-x{
@@ -477,6 +495,9 @@ body{
 .footer-list a{
     flex: 1;
     color: #333333;
+}
+.footer-list a:hover{
+    color: red;
 }
 .yqlj a{
     font-size: 12px;
