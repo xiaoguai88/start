@@ -5,11 +5,16 @@
 a{
     text-decoration: none;
 }
+a:hover{
+    text-decoration: block;
+    color: red;
+}
 ul,ol,li{
    list-style: none;
 }
 body{
     background-color:#e8e8e8;
+    
 }
 
 .header-top{
@@ -83,6 +88,9 @@ body{
     color: #333333;
     cursor: pointer;
 }
+.nav-1 li:hover{
+    color: red;
+}
 .nav-r{
     float: right;
     background-color: #ffffff;
@@ -102,7 +110,7 @@ body{
 .banner{
     width: 1200px;
     height: 538px;
-    background:#ccc;
+    background:#e8e8e8;
     margin: 0 auto;
     box-sizing: border-box;
     position: relative;
@@ -110,7 +118,7 @@ body{
 .banner-l{
     width: 228px;
     height: 528px;
-    background-color: #e62828;
+    background-color: #ffffff;
     position: absolute;
     top: 10px;
     
@@ -145,7 +153,7 @@ body{
     width: 680px;
     height:240px ;
     margin-top: 10px;
-    background-color: aquamarine;
+    background-color: #ffffff;
 }
 .banner-x img{
     display: block;
@@ -154,17 +162,25 @@ body{
     float: left;
     border-right: solid 1px #ccc;
     border-bottom: solid 1px #ccc;
+    overflow: hidden;
+}
+.banner-x img:hover{
+    width: 225px;
+    height: 120px;
+    transition:all 1s;
+    transform: scale(1.1);
+    
 }
 .banner-r{
     width: 272px;
     height: 528px;
-    background-color: aquamarine;
+    background-color: #ffffff;
     position: absolute;
     right: 0;
     top: 10px;
 }
 .banner-r .br-top{
-    background-color: chartreuse;
+    background-color: #ffffff;
     overflow: hidden;
 }
 .br-top > img{
@@ -196,15 +212,24 @@ body{
 .br-md{
     width: 244px;
     height: 120px;
-    background-color: antiquewhite;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #ffffff;
     margin: 4px 14px 4px;
+    padding: 10px 5px;
 }
 .br-md img{
+    display: block;
+    margin-bottom: 10px;
     width: 92.8px;
     height: 20px;
 }
 .br-md a{
     font-size: 14px;
+    width: 235px;
+    height: 1;
+   
     color: #333333 ;
 }
 .br-btm{
@@ -385,4 +410,95 @@ body{
     margin-left: 0px;
     margin-top: 15px;
 }
-
+.con-r-db{
+    position: absolute;
+    width: 328px;
+    height: 341px;
+    right: 74px;
+    top: 1750px;
+    background-color:#ffffff;
+}
+.con-r-db >p{
+    border-bottom: solid 1px #e8e8e8;
+    width: 328px;
+    height: 45px;
+    line-height: 45px;
+}
+.con-r-db p span{
+    float: left;
+}
+.con-r-db p a{
+    float: right;
+    font-size: 14px;
+    color: #ccc;
+}
+.news{
+    overflow: hidden;
+}
+.news li{
+    /* margin-bottom: 5px; */
+    /* padding: 3px; */
+    position: relative;
+}
+.news li>p{
+    font-size: 12px;
+    position: absolute;
+    right: 60px;
+    bottom: 5px;
+    color: #ccc;
+}
+.news li img{
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    
+}
+.news li>a{
+   position: absolute;
+   right: 120px;
+   top: 5px
+   ;
+   color: #333333;
+   
+}
+.footer{
+    width: 1200px;
+    height: 392px;
+    background-color: #ffffff;
+    margin: 55px auto 0;
+    position: relative;
+}
+/* footer */
+.footer-list{
+    display: flex;
+    line-height: 48px;
+    border-bottom: solid 1px #e8e8e8;
+}
+.footer-list a{
+    flex: 1;
+    color: #333333;
+}
+.yqlj a{
+    font-size: 12px;
+    color: #333333;
+}
+.yqlj{
+    margin-top: 10px;
+}
+.footer dl{
+    padding: 30px;
+    
+}
+.footer-wrap{
+    height: 392px;
+    background-color: #ffffff;
+}
+.ewm{
+    position: absolute;
+    top: 73px;
+    right: 20px;
+}
+.ewm {
+    font-size: 12px;
+    color: #333333;
+}

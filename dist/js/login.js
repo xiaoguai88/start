@@ -1,1 +1,1 @@
-"use strict";
+"use strict";var dl=document.querySelector(".login-dl");console.log(dl),dl.click=function(){var e=document.querySelector(".phone"),l=document.querySelector(".pw"),o=document.querySelector(".errinfo");console.log(e);var c=e.value,r=l.value;c&&r||(o.style.display="block")};
